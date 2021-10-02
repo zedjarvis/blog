@@ -1,0 +1,235 @@
+{% extends 'accounts/navbar.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="container">
+                        <div class="row flex-lg-nowrap">
+                          <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+                            <div class="card p-3">
+                              <div class="e-navlist e-navlist--active-bg">
+                                <ul class="nav">
+                                  <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-bar-chart"></i><span>Overview</span></a></li>
+                                  <li class="nav-item"><a class="nav-link px-2" href="{% url 'profile' %}"><i class="fa fa-user fa-th mr-1"></i><span>Profile</span></a></li>
+                                  <li class="nav-item"><a class="nav-link px-2" href="{% url 'error' %}"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        
+                          <div class="col">
+                            <div class="row">
+                              <div class="col mb-3">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <div class="e-profile">
+                                      <div class="row">
+                                        <div class="col-12 col-sm-auto mb-3">
+                                          <div class="mx-auto" style="width: 140px;">
+                                            <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239); background-size: cover;">
+                                                <img class="rounded" src="{{user.profile.profile_image.url}}" alt="{{user.usernam}}'s DP}}" style="position: relative; height: 140px; width: 140px;">
+                                             
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                          <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{user.username | upper}}</h4>
+                                            <p class="mb-0">{{user.email}}</p>
+                                            <div class="text-muted"><small>Last seen {{user.last_login}}</small></div>
+                                            <div class="mt-2">
+                                              <a href="#changeImage" class="btn btn-primary" type="button">
+                                                <i class="fa fa-fw fa-camera"></i>
+                                                <span>Change Photo</span>
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div class="text-center text-sm-right">
+                                            {% if user.is_staff %}
+                                                <span class="badge badge-secondary">Staff Member</span>
+                                            {% elif user.is_superuser %}
+                                                <span class="badge badge-secondary">Administrator</span>
+                                            {% else %}
+                                                <span class="badge badge-secondary">User</span>
+                                            {% endif %}
+                                            <div class="text-muted"><small>Joined {{user.date_joined}}</small></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <ul class="nav nav-tabs">
+                                        <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                                      </ul>
+                                      <div class="tab-content pt-3">
+                                        <div class="tab-pane active">
+                                          <form method="POST" class="form was-validated" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                              <div class="col">
+                                                <div class="row">
+                                                  <div class="col">
+                                                    <div class="form-group">
+                                                      <label>User Name</label>
+                                                      {{u_form.username}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label>First Name</label>
+                                                      {{u_form.first_name}}
+                                                    </div>
+                                                  </div>
+                                                  <div class="col">
+                                                    <div class="form-group">
+                                                      <label>Last Name</label>
+                                                      {{u_form.last_name}}
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col">
+                                                    <div class="form-group">
+                                                      <label>Email</label>
+                                                      {{u_form.email}}
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col">
+                                                    <div class="form-group">
+                                                      {{p_form.gender|as_crispy_field}}
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col">
+                                                    <div class="form-group">
+                                                      <label>Birth Date</label>
+                                                      {{p_form.birth_date}}
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="row">
+                                                  <div class="col mb-3">
+                                                    <div class="form-group">
+                                                      {{p_form.bio|as_crispy_field}}
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="mb-2"><b><a class="btn btn-primary" href="{% url 'changepassword' %}">Change Password</a></b></div>
+                                    
+                                              <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                                                <div class="mb-2"><b>Keeping in Touch</b></div>
+                                                <div class="row">
+                                                  <div class="col">
+                                                    <label>Email Notifications</label>
+                                                    <div class="custom-controls-stacked px-2">
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                        <label class="custom-control-label" for="notifications-blog">Blog posts</label>
+                                                      </div>
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
+                                                        <label class="custom-control-label" for="notifications-news">Newsletter</label>
+                                                      </div>
+                                                      <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                                                        <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col mb-3">
+                                                <div class="form-group" id="changeImage">
+                                                  {{p_form.profile_image|as_crispy_field}}
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col d-flex justify-content-end">
+                                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                                              </div>
+                                            </div>
+                                          </form>
+                        
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        
+                              <div class="col-12 col-md-3 mb-3">
+                                <div class="card mb-3">
+                                  <div class="card-body">
+                                    <div class="px-xl-3">
+                                      <a href="{% url 'logout' %}" class="btn btn-block btn-secondary">
+                                        <i class="fa fa-sign-out"></i>
+                                        <span>Logout</span>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                 <!-- Dropdown No Arrow -->
+                            <div class="card mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Support</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="dropdown no-arrow mb-4">
+                                        <p class="card-text">Get fast, free help from our friendly assistants.</p>
+                                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Contact Us
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <form method="POST" class="was-validated">
+                                                <div > <input class="form-control" type="text" name="message" id="" placeholder="Talk to us.. we listen"></div>
+                                                <div><button class="btn btn-primary" type="submit"><i class="fa fa-send"></i> Send</button></div>
+                                               
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                              </div>
+                            </div>
+                        
+                          </div>
+                        </div>
+                        </div>
+
+                </div>
+                <!-- /.container-fluid -->
+                <script>
+                  // Querry all input fields
+                  var form_fields = document.getElementsByTagName('input')
+            
+
+                  form_fields[3].className="form-control form-control-user";
+  
+                  form_fields[4].className="form-control form-control-user";
+              
+                  form_fields[5].className="form-control form-control-user";
+    
+                  form_fields[6].className="form-control form-control-user";
+
+
+                
+              </script>
+
+            </div>
+            <!-- End of Main Content -->
+{% endblock %} 

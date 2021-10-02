@@ -1,0 +1,151 @@
+{% extends 'accounts/navbar.html' %} 
+
+{% block title %} UserProfile@ Roll Industries {% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Edit Profile</h4>
+                  <p class="card-category">Complete your profile</p>
+                  {% if messages %} 
+                      {% for message in messages %} 
+                      <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="material-icons">close</i>
+                        </button>
+                        <span>
+                          <b> Success - </b> {{message}}</span>
+                      </div>
+                      {% endfor %} 
+                  {% endif %}
+                </div>
+                <div class="card-body">
+                {% load crispy_forms_tags %}
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Roll Industries Inc.</label>
+                          <input type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Username</label>
+                          {{u_form.username}}
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          {{u_form.email|as_crispy_field}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          {{u_form.first_name|as_crispy_field}}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          {{u_form.last_name|as_crispy_field}}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          {{p_form.phone_number|as_crispy_field}}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          {{p_form.gender|as_crispy_field}}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          {{p_form.birth_date|as_crispy_field}}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          {{p_form.profile_image|as_crispy_field}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Adress</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">City</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Country</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Postal Code</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <div class="form-group">
+                            {{p_form.bio|as_crispy_field}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                      <div class="mb-2"><b>Keeping in Touch</b></div>
+                      <div class="row">
+                        <div class="col">
+                          <label>Email Notifications</label>
+                          <div class="custom-controls-stacked px-2">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                              <label class="custom-control-label" for="notifications-blog">Blog posts</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
+                              <label class="custom-control-label" for="notifications-news">Newsletter</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                              <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                              <label class="custom-control-label" for="notifications-offers">General Notifications</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right"><i class="bx bx-upload"></i> Update Profile</button>
+                    <a href="{% url 'changepassword' %}" class="btn btn-primary pull-right"><i class="bx bx-key"></i> Change Password</a>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+{% endblock %}

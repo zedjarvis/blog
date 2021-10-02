@@ -1,0 +1,40 @@
+{% extends 'accounts/navbar.html' %}
+
+{% block content %}
+
+{% load static %}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- 404 Error Text -->
+                    {% if user.is_superuser %}
+                            <div class="text-center">
+                                <div class="error mx-auto" data-text="404">404</div>
+                                <p class="lead text-gray-800 mb-5">Page Not Found</p>
+                                <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
+                                <a style="color: purple;" href="{% url 'dashboard' %}">&larr; Back to Dashboard</a>
+                            </div>
+                    {% else%} 
+                            <div class="text-center">
+                                <div class="error mx-auto" data-text="404">404</div>
+                                <p class="lead text-gray-800 mb-5">Page Not Found</p>
+                                <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
+                                <a style="color: purple;" href="{% url 'profile' %}">&larr; Back to Profile</a>
+                            </div>
+                    {% endif %}
+                    <div class="alert alert-info alert-with-icon" data-notify="container">
+                        <i class="bx bx-bell-plus bx-sm" data-notify="icon"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="bx bx-x bx-sm"></i>
+                        </button>
+                        <span data-notify="message">This page will be made available in the next <strong>update</strong><br>
+                        Make sure you activate notifications in the edit profile page to be notified.</span>
+                      </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+{% endblock %} 
