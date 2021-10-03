@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'blogapplication',
     'crispy_forms',
     'django_cleanup',
     'storages',
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'MyWebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rollindustries',
+        'NAME': 'blog',
         'USER': 'postgres',
         'PASSWORD': 'cedo1234',
         'HOST': '127.0.0.1',

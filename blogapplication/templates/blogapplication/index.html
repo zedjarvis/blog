@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Scrolling Nav - Start Bootstrap Template</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'blogapplication/assets/favicon.ico' %}" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'accounts/css/boxicons.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'blogapplication/css/styles.css' %}" rel="stylesheet" />
+        <link href="{% static 'blogapplication/css/slide.css' %}" rel="stylesheet" />
+        <link href="{% static 'blogapplication/css/test.css' %}" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <div class="container px-4">
+                <a class="navbar-brand" href="#page-top">The Blog</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#page-top">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#content">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="form-check form-switch text-white justify-content-around collapse navbar-collapse">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                    <label class="form-check-label" for="flexSwitchCheckDefault"
+                      ></label
+                    >
+                  </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="masthead page-top text-white" style="background: url(/static/blogapplication/assets/bg-masthead.jpg); opacity: 0.85; background-color: gray;">
+            <div class="container px-4 text-center">
+                <h1 class="fw-bolder" style="opacity: 1; color: black;">Random Thread</h1>
+                <p class="text-white-75 mb-5 lead" style="opacity: 1;">A place of farmiliar thoughts</p>
+                <a class="btn btn-lg btn-dark" href="#content">Start Reading!</a>
+            </div>
+        </header>
+
+        <section class="dark">
+            <h1 class="text-center text-white">FEATURED ARTICLES...</h1>
+            <br/>
+            <br/>
+            <br/>
+            <div class="container">
+              <div class="row">
+              {% for post in top_list %}
+                <div class="col-sm-4">
+                  <div class="card text-white card-has-bg click-col" style="background-image:url('{{ post.post_image.url }}');">
+                    <img class="card-img d-none" src="{{ post.post_image.url }}" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+                    <div class="card-img-overlay d-flex flex-column">
+                      <div class="card-body">
+                        <small class="card-meta mb-2">A.I generated</small>
+                        <h4 class="card-title mt-0 "><a class="text-white" herf="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h4>
+                        <small><i class="bx bx-alarm"></i> {{ post.author }} | {{ post.created_on }}</small>
+                      </div>
+                      <div class="card-footer">
+                        <div class="media">
+                          <img class="mr-3 rounded-circle" src="{{ post.author.profile.profile_image.url }}" alt="Generic placeholder image" style="max-width:50px">
+                          <div class="media-body">
+                            <h6 class="my-0 text-white d-block">Jarvis</h6>
+                            <small>AI Nlu Bot</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+           
+              </div>
+          
+            </div>
+          </section>
+        <!-- About section-->
+        <section id="content">
+            <div class="container px-4">
+                <section class="dark">
+                    <div class="container py-4">
+                      {% for post in post_list %}
+                        <article class="postcard dark blue">
+                            <a class="postcard__img_link" href="{{ post.post_image.url }}">
+                                <img class="postcard__img" src="{{ post.post_image.url }}" alt="Image Title" />
+                            </a>
+                            <div class="postcard__text">
+                                
+                                <h1 class="postcard__title blue"><a href="{% url 'post_detail' post.slug %}"> {{ post.title }}</a></h1>
+                                <div class="postcard__subtitle small">
+                                    <time datetime="2020-05-25 12:00:00">
+                                        <i class="bx bx-calendar-heart"></i> {{ post.author }} | {{ post.created_on }} 
+                                    </time>
+                                </div>
+                                <div class="postcard__bar"></div>
+                                <div class="postcard__preview-txt">{{ post.content|slice:":300" | safe }}...</div>
+                                <ul class="postcard__tagbox">
+                                    <li class="tag__item"><i class="bx bx-like bx-sm justify-content-center"></i></li>
+                                    <li class="tag__item"><i class="bx bx-alarm bx-sm"></i> 5 mins.</li>
+                                    <li class="tag__item play blue">
+                                        <a href="{% url 'post_detail' post.slug %}"><i class="bx bx-book-reader bx-sm"></i> Read More</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </article>
+                      {% endfor %}
+                       
+                    </div>
+                    {% if post_list.has_other_pages %} 
+                        <nav aria-label="Page navigation container"></nav>
+                        <ul class="pagination justify-content-center">
+                            {% if post_list.has_previous %}
+                            <li><a href="?page={{ post_list.previous_page_number }}" class="page-link" style="color: rgb(38, 174, 184);">&laquo; PREV </a></li>
+                            {% endif %} 
+                            {% if post_list.has_next %} 
+                            <li><a href="?page={{ post_list.next_page_number }}" class="page-link" style="color: rgb(38, 174, 184);"> NEXT &raquo;</a></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %} 
+                </section>
+            </div>
+        </section>
+        <section class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+        
+                        <!-- CUSTOM BLOCKQUOTE -->
+                        <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded text-black">
+                            <div class="blockquote-custom-icon bg-info shadow-sm"><i class="bx bxs-quote-right"></i></div>
+                            <p class="mb-0 mt-2 font-italic">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo <a href="#" class="text-info">@consequat</a>."</p>
+                            <footer class="blockquote-footer pt-4 mt-4 border-top">Someone famous in
+                                <cite title="Source Title">Source Title</cite>
+                            </footer>
+                        </blockquote><!-- END -->
+        
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="{% static 'blogapplication/js/bootstrap.bundle.min.js' %}"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'blogapplication/js/scripts.js' %}"></script>
+    </body>
+</html>
