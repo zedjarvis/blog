@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -31,7 +30,7 @@ class Profile(models.Model):
                               choices=GENDER_CHOICES,
                               null=True, blank=True)
 
-    profile_image = models.ImageField(default='',
+    profile_image = models.ImageField(default='default.png',
                                       upload_to='media/',
                                       null=True, blank=True)
 
