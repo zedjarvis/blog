@@ -31,7 +31,7 @@ class Profile(models.Model):
                               choices=GENDER_CHOICES,
                               null=True, blank=True)
 
-    profile_image = models.ImageField(default='default.png',
+    profile_image = models.ImageField(default='',
                                       upload_to='media/',
                                       null=True, blank=True)
 
