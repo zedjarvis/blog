@@ -49,30 +49,25 @@
             <div class="row">
                 <div class="col-lg-8">
                     <section class="dark">
-                        <div class="container py-4" style="font-size: large;">
+                        <div class="container py-4 dark blue" style="font-size: large;">
                             <div class="h1 text-center text-light" id="pageHeaderTitle"><u>{{ post.title }}</u></div>
                             <br />
                             <time datetime="2020-05-25 12:00:00">
-                                <i class="bx bx-calendar-heart"></i>{{ post.author }} | {{ post.created_on }}
+                                <i class="bx bx-calendar-heart"></i>  {{ post.author }} | {{ post.created_on }}
                             </time>
                             <article class="postcard dark blue">
                                 <br>
                                 <p></p>
                                
                             </article>
-                            <article class="postcard dark blue">
-                                <br>
-                                <p>{{ post.content|slice:":300" | safe }}</p>
-                               
-                            </article>
                             <a class="postcard__img_link" href="{{ post.post_image.url }}">
                                 <img class="postcard__img" src="{{ post.post_image.url }}" alt="Image Title" />
                             </a>
-                            <article class="postcard dark blue">
+                            <article>
                                 <br>
-                                {{ post.content|slice:"300:" | safe }}
-                               
+                               <p> {{ post.content | safe }} </p>
                             </article>
+          
                            
                         </div>
                     </section>
@@ -256,9 +251,9 @@
                     <div class="card mb-4">
                         <div class="card-body item justify-content-center">
                             <div class="box text-black"><img class="rounded-circle" src="{{ post.author.profile.profile_image.url }}" height="100px" width="100px">
-                                <h3 class="name">{{post.author}}</h3>
+                                <h3 class="name">{{ post.author }}</h3>
                                 <p class="title">Blogger</p>
-                                <p class="description">{{post.author.profile.bio}} </p>
+                                <p class="description">{{ post.author.profile.bio }} </p>
                                 <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
                             </div>
                         </div>
