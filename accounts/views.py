@@ -5,8 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
+
 
 
 # custom user creation template in forms.py
@@ -121,7 +120,7 @@ def dashBoardErrorPage(request):
 @login_required
 def notificationPage(request):
 
-    notifications = Notifications.objects.filter(user=request.user)
+    notifications = Notifications.objects.filter(user=request.user).order_by('-created_on')
     not_read = len([n for n in notifications if not n.viewed])
     for notification in notifications:
         if not notification.viewed:
@@ -203,8 +202,8 @@ def loginUser(request):
                 login(request, user)
                 return redirect('profile')
             else:
-                messages.info(request,
-                              'Username or password is incorrect!')
+                messages.error(request,
+                               'Username or password is incorrect!')
 
     return render(request,
                   'accounts/registration/login.html')

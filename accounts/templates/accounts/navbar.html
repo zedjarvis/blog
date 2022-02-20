@@ -31,7 +31,7 @@
   <link href="{% static 'accounts/assets/css/material-dashboard.css' %}" rel="stylesheet" />
 </head>
 
-<body class="light-edition">
+<body>
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="/static/accounts/assets/img/sidebar-2.jpg">
       <!--
@@ -92,13 +92,6 @@
               <p>Logout</p>
             </a>
           </li>
-          
-          <!-- <li class="nav-item active-pro ">
-                <a class="nav-link" href="./upgrade.html">
-                    <i class="material-icons">unarchive</i>
-                    <p>Upgrade to PRO</p>
-                </a>
-            </li> -->
         </ul>
       </div>
     </div>
@@ -279,8 +272,14 @@
           </a>
         </li>
         <li class="button-container">
-          <button href="#" class="btn btn-primary btn-block">Dark Mode</button>
+          <button onclick="darkMode()" class="btn btn-primary btn-block">Dark Mode</button>
         </li>
+        <script>
+            function darkMode(){
+              var element = document.body;
+              element.classList.toggle('dark-edition')
+            }
+        </script>
         <!-- <li class="header-title">Want more components?</li>
             <li class="button-container">
                 <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
@@ -288,10 +287,16 @@
                 </a>
             </li> -->
         <li class="button-container">
-          <button href="#" class="btn btn-default btn-block">
+          <button onclick="lightMode()" class="btn btn-default btn-block">
             Light Mode
           </button>
         </li>
+        <script>
+            function lightMode() {
+              var element = document.body;
+              element.classList.toggle('dark-edition')
+            }
+        </script>
       </ul>
     </div>
   </div>
